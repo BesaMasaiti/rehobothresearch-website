@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rehoboth Research — Quantitative Intelligence for Complex Infrastructure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --red: #D41F1F;
+  --red-dim: #a01515;
+  --navy: #0b0c14;
+  --navy2: #12131f;
+  --navy3: #1a1b2e;
+  --navy4: #22243a;
+  --navy5: #2c2f4a;
+  --white: #f0f0f4;
+  --muted: #8b8fa8;
+  --border: rgba(255,255,255,0.07);
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);color:var(--white);font-family:var(--font-body);font-size:16px;line-height:1.7;overflow-x:hidden;}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.35;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:rgba(11,12,20,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;}
+.rr-logo{width:38px;height:38px;position:relative;flex-shrink:0;}
+.rr-logo svg{width:100%;height:100%;}
+.nav-brand{display:flex;flex-direction:column;line-height:1;}
+.nav-brand-name{font-family:var(--font-head);font-weight:700;font-size:.9rem;letter-spacing:.12em;color:var(--white);}
+.nav-brand-sub{font-size:.62rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:.04em;transition:color .2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{background:var(--red);color:#fff!important;padding:.45rem 1.1rem;border-radius:4px;font-size:.82rem!important;font-weight:500;transition:background .2s!important;}
+.nav-cta:hover{background:var(--red-dim)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:.3s;}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 2.5rem 5rem;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,31,31,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(212,31,31,.06) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-glow{position:absolute;top:-10%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(212,31,31,.12) 0%,transparent 70%);pointer-events:none;}
+.hero-glow2{position:absolute;bottom:-20%;left:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(26,27,46,.9) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{max-width:900px;position:relative;z-index:2;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(212,31,31,.12);border:1px solid rgba(212,31,31,.3);padding:.35rem .9rem;border-radius:20px;font-size:.75rem;letter-spacing:.1em;color:var(--red);text-transform:uppercase;font-family:var(--font-mono);margin-bottom:2rem;animation:fadeUp .8s ease both;}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--red);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
+h1{font-family:var(--font-head);font-weight:800;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:1.5rem;animation:fadeUp .8s .1s ease both;}
+h1 em{font-style:normal;color:var(--red);}
+.hero-sub{font-size:1.1rem;color:var(--muted);max-width:580px;line-height:1.8;margin-bottom:2.5rem;animation:fadeUp .8s .2s ease both;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .8s .3s ease both;}
+.btn-primary{background:var(--red);color:#fff;padding:.75rem 1.8rem;border-radius:4px;text-decoration:none;font-weight:500;font-size:.9rem;letter-spacing:.02em;transition:background .2s,transform .15s;display:inline-flex;align-items:center;gap:.5rem;}
+.btn-primary:hover{background:var(--red-dim);transform:translateY(-1px);}
+.btn-secondary{background:transparent;color:var(--white);padding:.75rem 1.8rem;border-radius:4px;text-decoration:none;font-weight:500;font-size:.9rem;border:1px solid var(--border);transition:border-color .2s,transform .15s;display:inline-flex;align-items:center;gap:.5rem;}
+.btn-secondary:hover{border-color:rgba(255,255,255,.3);transform:translateY(-1px);}
+.btn-icon{font-size:.8rem;opacity:.7;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── TRACTION BAR ── */
+.traction-bar{background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.4rem 2.5rem;}
+.traction-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2rem;align-items:center;justify-content:center;}
+.traction-item{display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted);}
+.traction-dot{width:5px;height:5px;background:var(--red);border-radius:50%;flex-shrink:0;}
+.traction-item strong{color:var(--white);font-weight:500;}
+.traction-sep{width:1px;height:20px;background:var(--border);}
+
+/* ── SECTIONS SHARED ── */
+section{padding:5rem 2.5rem;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-label{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;}
+.section-title{font-family:var(--font-head);font-weight:700;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.2;margin-bottom:1rem;}
+.section-desc{color:var(--muted);max-width:560px;line-height:1.8;margin-bottom:3rem;}
+
+/* ── PROBLEM / GAP ── */
+#problem{background:var(--navy2);}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;}
+.problem-card{background:var(--navy3);border:1px solid var(--border);border-radius:8px;padding:1.8rem;position:relative;overflow:hidden;}
+.problem-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);opacity:.4;}
+.problem-num{font-family:var(--font-mono);font-size:.72rem;color:var(--red);letter-spacing:.1em;margin-bottom:.8rem;}
+.problem-card h3{font-family:var(--font-head);font-size:1rem;font-weight:600;margin-bottom:.6rem;}
+.problem-card p{color:var(--muted);font-size:.88rem;line-height:1.7;}
+
+/* ── PRODUCTS ── */
+#products{}
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1rem;}
+.product-card{background:var(--navy2);border:1px solid var(--border);border-radius:10px;padding:2.2rem;position:relative;overflow:hidden;transition:border-color .3s;}
+.product-card:hover{border-color:rgba(212,31,31,.3);}
+.product-card.featured{border-color:rgba(212,31,31,.25);}
+.product-tag{display:inline-block;background:rgba(212,31,31,.12);border:1px solid rgba(212,31,31,.25);color:var(--red);font-size:.7rem;letter-spacing:.1em;padding:.25rem .7rem;border-radius:3px;font-family:var(--font-mono);margin-bottom:1.2rem;}
+.product-tag.tag-soon{background:rgba(139,143,168,.08);border-color:rgba(139,143,168,.2);color:var(--muted);}
+.product-card h3{font-family:var(--font-head);font-size:1.3rem;font-weight:700;margin-bottom:.7rem;}
+.product-card p{color:var(--muted);font-size:.9rem;line-height:1.75;margin-bottom:1.5rem;}
+.output-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;}
+.chip{background:var(--navy4);border:1px solid var(--border);border-radius:4px;padding:.3rem .75rem;font-size:.78rem;font-family:var(--font-mono);color:var(--white);}
+.chip.highlight{border-color:rgba(212,31,31,.3);color:var(--red);background:rgba(212,31,31,.06);}
+.product-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--red);font-size:.83rem;text-decoration:none;font-weight:500;transition:gap .2s;}
+.product-link:hover{gap:.7rem;}
+
+/* ── HOW IT WORKS ── */
+#how{background:var(--navy2);}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.steps::before{content:'';position:absolute;top:2rem;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--border) 20%,var(--border) 80%,transparent);pointer-events:none;}
+.step{padding:1.5rem 1.2rem;text-align:center;position:relative;}
+.step-num{width:4rem;height:4rem;border-radius:50%;background:var(--navy3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-family:var(--font-mono);font-size:.75rem;color:var(--red);position:relative;z-index:1;}
+.step.active .step-num{background:var(--red);color:#fff;border-color:var(--red);}
+.step h4{font-family:var(--font-head);font-size:.95rem;font-weight:600;margin-bottom:.5rem;}
+.step p{color:var(--muted);font-size:.83rem;line-height:1.65;}
+
+/* ── WHO ── */
+#who{}
+.who-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;}
+.who-card{background:var(--navy2);border:1px solid var(--border);border-radius:8px;padding:1.6rem;display:flex;gap:1.2rem;align-items:flex-start;transition:border-color .3s;}
+.who-card:hover{border-color:rgba(212,31,31,.25);}
+.who-icon{width:40px;height:40px;background:rgba(212,31,31,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;}
+.who-card h4{font-family:var(--font-head);font-size:.95rem;font-weight:600;margin-bottom:.35rem;}
+.who-card p{color:var(--muted);font-size:.85rem;line-height:1.65;}
+
+/* ── STATS ── */
+#stats{background:var(--navy2);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.stat{background:var(--navy2);padding:2rem 1.5rem;text-align:center;}
+.stat-num{font-family:var(--font-head);font-weight:800;font-size:2.2rem;color:var(--red);line-height:1;margin-bottom:.4rem;}
+.stat-label{color:var(--muted);font-size:.82rem;line-height:1.4;}
+
+/* ── COVERAGE ── */
+#coverage{}
+.coverage-timeline{display:flex;flex-direction:column;gap:.8rem;max-width:640px;}
+.coverage-row{display:flex;align-items:center;gap:1.2rem;padding:1rem 1.4rem;border-radius:6px;border:1px solid var(--border);}
+.coverage-row.active{background:rgba(212,31,31,.06);border-color:rgba(212,31,31,.25);}
+.coverage-status{font-family:var(--font-mono);font-size:.7rem;color:var(--red);width:90px;flex-shrink:0;letter-spacing:.06em;}
+.coverage-status.soon{color:var(--muted);}
+.coverage-dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;}
+.coverage-dot.soon{background:var(--navy5);}
+.coverage-row p{font-size:.9rem;color:var(--white);}
+.coverage-row.active p{color:var(--white);}
+.coverage-row:not(.active) p{color:var(--muted);}
+
+/* ── FOUNDER ── */
+#founder{background:var(--navy2);}
+.founder-inner{display:grid;grid-template-columns:280px 1fr;gap:4rem;align-items:start;}
+.founder-photo-wrap{position:relative;}
+.founder-photo{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;filter:grayscale(20%);display:block;}
+.founder-photo-placeholder{width:100%;aspect-ratio:3/4;background:var(--navy3);border-radius:8px;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;}
+.founder-photo-placeholder span{font-size:3rem;}
+.founder-photo-placeholder p{font-size:.75rem;color:var(--muted);text-align:center;padding:0 1rem;}
+.founder-badge-stack{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem;}
+.fbadge{background:var(--navy3);border:1px solid var(--border);border-radius:4px;padding:.4rem .8rem;font-size:.73rem;font-family:var(--font-mono);color:var(--muted);text-align:center;}
+.founder-content h2{font-family:var(--font-head);font-size:1.8rem;font-weight:700;margin-bottom:.3rem;}
+.founder-role{color:var(--red);font-size:.85rem;letter-spacing:.05em;margin-bottom:1.5rem;font-family:var(--font-mono);}
+.founder-content p{color:var(--muted);font-size:.93rem;line-height:1.85;margin-bottom:1rem;}
+.founder-content p strong{color:var(--white);}
+.founder-links{display:flex;gap:1rem;margin-top:1.5rem;}
+.founder-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--muted);font-size:.82rem;text-decoration:none;border:1px solid var(--border);padding:.4rem .9rem;border-radius:4px;transition:border-color .2s,color .2s;}
+.founder-link:hover{border-color:rgba(255,255,255,.25);color:var(--white);}
+
+/* ── RESEARCH ── */
+#research{}
+.research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.research-card{background:var(--navy2);border:1px solid var(--border);border-radius:8px;padding:1.6rem;text-decoration:none;color:inherit;transition:border-color .3s,transform .2s;display:block;}
+.research-card:hover{border-color:rgba(212,31,31,.3);transform:translateY(-3px);}
+.research-type{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;color:var(--red);margin-bottom:.8rem;text-transform:uppercase;}
+.research-card h4{font-family:var(--font-head);font-size:.95rem;font-weight:600;margin-bottom:.5rem;line-height:1.4;}
+.research-card p{color:var(--muted);font-size:.83rem;line-height:1.6;}
+.research-arrow{display:inline-block;margin-top:1rem;color:var(--red);font-size:.82rem;}
+
+/* ── CONTACT ── */
+#contact{background:var(--navy2);}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.contact-left h2{font-family:var(--font-head);font-size:2rem;font-weight:700;margin-bottom:1rem;}
+.contact-left p{color:var(--muted);line-height:1.8;margin-bottom:2rem;}
+.contact-methods{display:flex;flex-direction:column;gap:.8rem;}
+.contact-method{display:flex;align-items:center;gap:.8rem;color:var(--muted);font-size:.9rem;}
+.contact-method a{color:var(--white);text-decoration:none;}
+.contact-method a:hover{color:var(--red);}
+.contact-icon{width:36px;height:36px;background:var(--navy3);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.contact-form{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:2rem;}
+.form-group{margin-bottom:1.2rem;}
+.form-group label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:.45rem;letter-spacing:.04em;}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:var(--navy4);border:1px solid var(--border);border-radius:5px;padding:.7rem .9rem;color:var(--white);font-family:var(--font-body);font-size:.9rem;outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:rgba(212,31,31,.4);}
+.form-group textarea{resize:vertical;min-height:90px;}
+.form-group select option{background:var(--navy3);}
+.form-submit{width:100%;background:var(--red);color:#fff;border:none;padding:.8rem;border-radius:5px;font-size:.9rem;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background .2s;}
+.form-submit:hover{background:var(--red-dim);}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap;}
+.footer-brand{font-family:var(--font-mono);font-size:.78rem;color:var(--muted);}
+.footer-brand strong{color:var(--white);}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:.78rem;transition:color .2s;}
+.footer-links a:hover{color:var(--white);}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:1rem 1.4rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  #hero{padding:7rem 1.4rem 4rem;}
+  .problem-grid,.products-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .steps::before{display:none;}
+  .who-grid{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .founder-inner{grid-template-columns:1fr;}
+  .founder-photo-wrap{max-width:240px;}
+  .research-grid{grid-template-columns:1fr;}
+  .contact-inner{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:1rem;text-align:center;}
+  section{padding:3.5rem 1.4rem;}
+  .traction-bar{padding:1.2rem 1.4rem;}
+}
+@media(max-width:560px){
+  .steps{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .hero-btns{flex-direction:column;}
+  .btn-primary,.btn-secondary{justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="rr-logo">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="60" height="60" rx="6" fill="#12131f"/>
+        <text x="5" y="44" font-family="Georgia, serif" font-weight="900" font-size="38" fill="#D41F1F" letter-spacing="-4">RR</text>
+        <circle cx="50" cy="10" r="4" fill="#D41F1F" opacity=".7"/>
+        <path d="M50 14 Q54 20 50 26" stroke="#D41F1F" stroke-width="1.5" fill="none" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="nav-brand">
+      <span class="nav-brand-name">REHOBOTH RESEARCH</span>
+      <span class="nav-brand-sub">LLC</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#products">Products</a>
+    <a href="#how">How It Works</a>
+    <a href="#founder">Team</a>
+    <a href="#research">Research</a>
+    <a href="#contact" class="nav-cta">Request Demo</a>
+  </div>
+  <div class="hamburger" onclick="this.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span></span>
+      Bank of Botswana Regulatory Sandbox — Live Testing 2026
+    </div>
+    <h1>Making Solar Potential<br/><em>Bankable.</em></h1>
+    <p class="hero-sub">Rehoboth Research is the quantitative intelligence layer for infrastructure finance — combining AI, geospatial data, and financial engineering to turn complex projects into bankable decisions in under 60 seconds.</p>
+    <div class="hero-btns">
+      <a href="https://rehoboth-research-api.onrender.com/docs" target="_blank" class="btn-primary">
+        Live API Demo <span class="btn-icon">→</span>
+      </a>
+      <a href="#contact" class="btn-secondary">
+        Book a 30-min Call <span class="btn-icon">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TRACTION BAR -->
+<div class="traction-bar">
+  <div class="traction-inner">
+    <div class="traction-item">
+      <div class="traction-dot"></div>
+      <span><strong>91.5%</strong> model accuracy backtested on Botswana historical data</span>
+    </div>
+    <div class="traction-sep"></div>
+    <div class="traction-item">
+      <div class="traction-dot"></div>
+      <span><strong>Bank of Botswana</strong> Regulatory Sandbox — Accepted 2026</span>
+    </div>
+    <div class="traction-sep"></div>
+    <div class="traction-item">
+      <div class="traction-dot"></div>
+      <span><strong>ETHDenver 2026</strong> Featured Speaker</span>
+    </div>
+    <div class="traction-sep"></div>
+    <div class="traction-item">
+      <div class="traction-dot"></div>
+      <span><strong>BETP Secretariat</strong> Technical Feasibility Partner</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-inner">
+    <div class="section-label">The Problem</div>
+    <h2 class="section-title">The data gap blocking green finance</h2>
+    <p class="section-desc">Banks want to fund solar. Developers want to build. The numbers never line up — because the data to connect them doesn't exist in a bankable format.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-num">01 / GAP</div>
+        <h3>No standardised bankability data</h3>
+        <p>Lenders cannot independently audit solar yield — creating full dependency on expensive consultants and 6-week due diligence timelines.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">02 / GAP</div>
+        <h3>SMEs locked out of capital</h3>
+        <p>Smaller solar developers can't access institutional lending because prohibitive due diligence costs make their projects commercially unviable.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">03 / GAP</div>
+        <h3>No automated scoring tool exists</h3>
+        <p>No programmatic infrastructure exists for financial institutions to score solar credit risk in real-time — anywhere in Sub-Saharan Africa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-inner">
+    <div class="section-label">Our Products</div>
+    <h2 class="section-title">Two intelligence engines.<br/>One decision layer.</h2>
+    <div class="products-grid">
+
+      <div class="product-card featured">
+        <div class="product-tag">Live — SADC Region</div>
+        <h3>Solar Feasibility Engine</h3>
+        <p>The decision intelligence layer for Southern Africa's off-grid transition. Enter GPS coordinates — get a full bankable report in under 60 seconds. No consultant required.</p>
+        <div class="output-chips">
+          <span class="chip highlight">Rehoboth Solar Score</span>
+          <span class="chip highlight">LCOE Projection</span>
+          <span class="chip highlight">DSCR Indicator</span>
+          <span class="chip">P50 / P90 Yield Analysis</span>
+          <span class="chip">Tariff Arbitrage vs BPC Grid</span>
+          <span class="chip">CapEx / OpEx Sensitivity</span>
+        </div>
+        <a href="https://rehoboth-research-api.onrender.com/docs" target="_blank" class="product-link">View Live API Docs →</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-tag tag-soon">Coming Soon — U.S. Market</div>
+        <h3>AI Procurement Intelligence</h3>
+        <p>A proprietary monitoring and scoring engine that identifies high-alpha government contract opportunities for U.S. tech and blockchain firms — delivering a critical Speed-to-Bid advantage.</p>
+        <div class="output-chips">
+          <span class="chip">High-Alpha RFP Stream</span>
+          <span class="chip">Strategic Scoring Brief</span>
+          <span class="chip">Speed-to-Bid Alerts</span>
+          <span class="chip">Contract Value Estimates</span>
+          <span class="chip">Relevance Scoring</span>
+        </div>
+        <a href="#contact" class="product-link">Join the Waitlist →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">From coordinates to credit decision<br/>in four steps</h2>
+    <div class="steps">
+      <div class="step active">
+        <div class="step-num">01</div>
+        <h4>Input</h4>
+        <p>Financier submits GPS coordinates and industrial load profile via secure web interface</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>Data Fetch</h4>
+        <p>API retrieves real-time geospatial irradiance data from NREL & BIUST satellite feeds</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>AI Scoring</h4>
+        <p>XGBoost classification model generates high-fidelity Solar Score, LCOE, and DSCR outputs</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Compliance</h4>
+        <p>Policy AI Agent parses BPC regulations and government frameworks in real-time</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section id="who">
+  <div class="section-inner">
+    <div class="section-label">Who It's For</div>
+    <h2 class="section-title">Built for the people who move capital</h2>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-icon">🏦</div>
+        <div>
+          <h4>Risk Officers & Credit Analysts</h4>
+          <p>Validate solar project viability for loan approval workflows. Compare Rehoboth Solar Score against your internal credit thresholds.</p>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">⚡</div>
+        <div>
+          <h4>Bitcoin Miners & AI Data Centre Operators</h4>
+          <p>Make CAPEX decisions with P90 yield confidence and grid-free stability. Know your numbers before you commit.</p>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🔆</div>
+        <div>
+          <h4>Solar EPCs & Developers</h4>
+          <p>Produce bankable pre-feasibility packages in days, not months. Unlock institutional lending with standardised data.</p>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">📊</div>
+        <div>
+          <h4>Investors & Infrastructure Funds</h4>
+          <p>Screen SADC-wide renewable project pipelines efficiently. Evaluate site-specific solar ROI with verifiable, standardised outputs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="section-inner">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">91.5%</div>
+        <div class="stat-label">Model accuracy backtested on Botswana historical data</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">&lt;60s</div>
+        <div class="stat-label">Time from GPS input to full bankable report</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">~80%</div>
+        <div class="stat-label">Reduction in due diligence cost vs. traditional consulting</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Licensed financial institution sandbox partners — live testing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE -->
+<section id="coverage">
+  <div class="section-inner">
+    <div class="section-label">Market Coverage</div>
+    <h2 class="section-title">Building the SADC<br/>data infrastructure</h2>
+    <p class="section-desc">Starting in Botswana and expanding across the region — one corridor at a time.</p>
+    <div class="coverage-timeline">
+      <div class="coverage-row active">
+        <span class="coverage-status">● ACTIVE</span>
+        <div class="coverage-dot"></div>
+        <p><strong>Botswana</strong> — Validated in the Gaborone / Palapye economic corridor</p>
+      </div>
+      <div class="coverage-row">
+        <span class="coverage-status soon">◎ Q2 2026</span>
+        <div class="coverage-dot soon"></div>
+        <p>Palapye corridor and Kgalagadi district data ingestion</p>
+      </div>
+      <div class="coverage-row">
+        <span class="coverage-status soon">◎ Q3 2026</span>
+        <div class="coverage-dot soon"></div>
+        <p><strong>Zambia · Zimbabwe · Namibia</strong> — SADC regulatory framework expansion</p>
+      </div>
+      <div class="coverage-row">
+        <span class="coverage-status soon">◎ 2027</span>
+        <div class="coverage-dot soon"></div>
+        <p>Full SADC regional coverage — 16-nation financial intelligence network</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="section-inner">
+    <div class="section-label">The Team</div>
+    <div class="founder-inner">
+      <div class="founder-photo-wrap">
+        <!-- Replace src with actual photo URL when deploying -->
+        <img src="https://via.placeholder.com/280x373/12131f/D41F1F?text=Besa+Masaiti" alt="Besa Masaiti" class="founder-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="founder-photo-placeholder" style="display:none">
+          <span>👤</span>
+          <p>Replace with professional photo</p>
+        </div>
+        <div class="founder-badge-stack">
+          <div class="fbadge">MSc Financial Engineering — Lehigh '25</div>
+          <div class="fbadge">FIDE Woman Chess Master</div>
+          <div class="fbadge">ETHDenver 2026 Speaker</div>
+        </div>
+      </div>
+      <div class="founder-content">
+        <h2>Besa Masaiti</h2>
+        <div class="founder-role">Founder & CEO — Rehoboth Research LLC</div>
+        <p>Besa holds an <strong>MSc in Financial Engineering from Lehigh University</strong> and brings hands-on expertise across AI/ML architecture, quantitative research, blockchain analytics, and renewable energy finance. She is the architect of the Rehoboth Solar Engine — combining XGBoost credit scoring, geospatial data pipelines, and a Swarms-based Policy AI Agent to deliver real-time bankable intelligence.</p>
+        <p>As the <strong>first recipient of a Botswana National Sports Council elite scholarship</strong> to study in the United States, Besa brings a lived understanding of both the opportunities and constraints shaping Southern African development. She has engaged with the Botswana Economic Transformation Programme (BETP) Secretariat on a technical feasibility partnership and spoke at ETHDenver 2026 on tokenized securities and the U.S. housing crisis.</p>
+        <p>Besa is also a <strong>FIDE Woman Chess Master</strong> and founder of an annual international women's chess tournament in Botswana — representing the country at two Chess Olympiads.</p>
+        <div class="founder-links">
+          <a href="https://linkedin.com/in/besa-masaiti" target="_blank" class="founder-link">LinkedIn ↗</a>
+          <a href="https://github.com/BesaMasaiti" target="_blank" class="founder-link">GitHub ↗</a>
+          <a href="https://medium.com/@besamasaiti" target="_blank" class="founder-link">Medium ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-inner">
+    <div class="section-label">Research & Press</div>
+    <h2 class="section-title">Published work & appearances</h2>
+    <div class="research-grid">
+      <a href="#" class="research-card">
+        <div class="research-type">Whitepaper — 2026</div>
+        <h4>Bitcoin Mining & the Solar Opportunity: Off-Grid Economics, AI Colocation, and Botswana's Infrastructure Case</h4>
+        <p>Solar economics, AI colocation strategy, and the case for Botswana's off-grid infrastructure transition.</p>
+        <div class="research-arrow">Download PDF →</div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=iLJy6xVtTo4" target="_blank" class="research-card">
+        <div class="research-type">Conference Talk — ETHDenver 2026</div>
+        <h4>Tokenized Securities and the U.S. Housing Crisis</h4>
+        <p>Featured speaker presentation exploring the intersection of blockchain infrastructure and real estate finance reform.</p>
+        <div class="research-arrow">Watch on YouTube →</div>
+      </a>
+      <a href="https://podcasts.apple.com/us/podcast/blockchain-talk-with-rehoboth-research/id1216248445?i=1000754531735" target="_blank" class="research-card">
+        <div class="research-type">Podcast — The Quant / FE Podcast</div>
+        <h4>Blockchain Talk with Rehoboth Research</h4>
+        <p>In-depth conversation on quantitative approaches to blockchain infrastructure and the future of financial engineering.</p>
+        <div class="research-arrow">Listen on Apple Podcasts →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-label">Contact</div>
+        <h2>Let's talk numbers.</h2>
+        <p>Whether you're a financial institution looking to pilot the API, an infrastructure developer seeking bankable data, or a potential partner — we want to hear from you.</p>
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="contact-icon">✉</div>
+            <span>Email: <a href="mailto:besa@rehobothresearch.org">besa@rehobothresearch.org</a></span>
+          </div>
+          <div class="contact-method">
+            <div class="contact-icon">🔗</div>
+            <span>LinkedIn / X: <a href="https://linkedin.com/in/besa-masaiti" target="_blank">@besamasaiti</a></span>
+          </div>
+          <div class="contact-method">
+            <div class="contact-icon">📍</div>
+            <span>Pennsylvania, USA · Gaborone, Botswana</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your name"/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@company.com"/>
+        </div>
+        <div class="form-group">
+          <label>I am a...</label>
+          <select>
+            <option value="">Select your role</option>
+            <option>Risk Officer / Credit Analyst</option>
+            <option>Solar Developer / EPC</option>
+            <option>Infrastructure Fund Manager</option>
+            <option>Bitcoin Miner / AI Operator</option>
+            <option>Investor / Grant Body</option>
+            <option>U.S. Tech / Blockchain Firm</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us about your project or what you'd like to discuss..."></textarea>
+        </div>
+        <button class="form-submit" onclick="alert('Thank you! Besa will be in touch within 24 hours.')">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <strong>Rehoboth Research LLC</strong> · Pennsylvania, USA · Gaborone, Botswana<br/>
+    © 2026 Rehoboth Research LLC. All rights reserved.
+  </div>
+  <div class="footer-links">
+    <a href="https://rehoboth-research-api.onrender.com/docs" target="_blank">API Docs</a>
+    <a href="mailto:besa@rehobothresearch.org">Email</a>
+    <a href="https://linkedin.com/in/besa-masaiti" target="_blank">LinkedIn</a>
+    <a href="https://github.com/BesaMasaiti" target="_blank">GitHub</a>
+  </div>
+</footer>
+
+<script>
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+// Fade-in on scroll
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+  });
+},{threshold:0.1});
+document.querySelectorAll('.problem-card,.product-card,.who-card,.research-card,.coverage-row,.step').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .5s ease,transform .5s ease';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
