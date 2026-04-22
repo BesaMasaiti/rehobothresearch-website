@@ -32,7 +32,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:rgba(11,12,20,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
 .nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;}
-.rr-logo{width:38px;height:38px;position:relative;flex-shrink:0;}
+.logo-img{  width:100%;height:100%;object-fit:contain;}
 .rr-logo svg{width:100%;height:100%;}
 .nav-brand{display:flex;flex-direction:column;line-height:1;}
 .nav-brand-name{font-family:var(--font-head);font-weight:700;font-size:.9rem;letter-spacing:.12em;color:var(--white);}
@@ -233,12 +233,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
 <nav>
   <a href="#" class="nav-logo">
     <div class="rr-logo">
-      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="60" height="60" rx="6" fill="#12131f"/>
-        <text x="5" y="44" font-family="Georgia, serif" font-weight="900" font-size="38" fill="#D41F1F" letter-spacing="-4">RR</text>
-        <circle cx="50" cy="10" r="4" fill="#D41F1F" opacity=".7"/>
-        <path d="M50 14 Q54 20 50 26" stroke="#D41F1F" stroke-width="1.5" fill="none" opacity=".5"/>
-      </svg>
+      <img src="images/Rehoboth_Research_logo.jpg" alt="Rehoboth Research Logo" class="logo-img"/>
     </div>
     <div class="nav-brand">
       <span class="nav-brand-name">REHOBOTH RESEARCH</span>
