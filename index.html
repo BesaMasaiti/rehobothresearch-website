@@ -32,8 +32,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:rgba(11,12,20,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
 .nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;}
-.logo-img{  width:100%;height:100%;object-fit:contain;}
-.rr-logo svg{width:100%;height:100%;}
+.rr-logo{
+  width:72px;   
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.logo-img{width:100%;height:100%;object-fit:contain;}
 .nav-brand{display:flex;flex-direction:column;line-height:1;}
 .nav-brand-name{font-family:var(--font-head);font-weight:700;font-size:.9rem;letter-spacing:.12em;color:var(--white);}
 .nav-brand-sub{font-size:.62rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;}
@@ -233,11 +239,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
 <nav>
   <a href="#" class="nav-logo">
     <div class="rr-logo">
-      <img src="images/Rehoboth_Research_logo.jpg" alt="Rehoboth Research Logo" class="logo-img"/>
-    </div>
-    <div class="nav-brand">
-      <span class="nav-brand-name">REHOBOTH RESEARCH</span>
-      <span class="nav-brand-sub">LLC</span>
+      <img src="images/Rehoboth_Research_Logo.jpg" alt="Rehoboth Research Logo" class="logo-img"/>
     </div>
   </a>
   <div class="nav-links">
@@ -245,7 +247,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
     <a href="#how">How It Works</a>
     <a href="#founder">Team</a>
     <a href="#research">Research</a>
-    <a href="#contact" class="nav-cta">Request Demo</a>
+    <a href="#contact" class="nav-cta">Run a Pilot</a>
   </div>
   <div class="hamburger" onclick="this.classList.toggle('open')">
     <span></span><span></span><span></span>
@@ -261,9 +263,6 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
     <h1>Quantitative Intelligence for<br/><em>Complex Infrastructure.</em></h1>
     <p class="hero-sub">Rehoboth Research builds high-fidelity AI agents that bridge the information gap in complex markets. From U.S. Federal Procurement to SADC Solar Yield- we deliver the Speed-to-Bid and Speed-to-Bank advantage.</p>
     <div class="hero-btns">
-      <a href="https://rehoboth-research-api.onrender.com/docs" target="_blank" class="btn-primary">
-        Live API Demo <span class="btn-icon">→</span>
-      </a>
       <a href="#contact" class="btn-secondary">
         Book a 30-min Call <span class="btn-icon">↗</span>
       </a>
