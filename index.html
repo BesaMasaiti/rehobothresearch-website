@@ -111,6 +111,26 @@ section{padding:5rem 2.5rem;}
 .product-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--red);font-size:.83rem;text-decoration:none;font-weight:500;transition:gap .2s;}
 .product-link:hover{gap:.7rem;}
 
+/* ── PIPELINE INTEGRATION & INTERFACE ARCHITECTURE ── */
+#pipeline{background:var(--navy);border-top:1px solid var(--border);}
+.pipeline-layout{display:grid;grid-template-columns:380px 1fr;gap:3rem;align-items:start;}
+.pipeline-svg-sticky{position:sticky;top:120px;}
+.screenshot-walkthrough{display:flex;flex-direction:column;gap:3.5rem;}
+.screenshot-block{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;overflow:hidden;}
+.screenshot-title-area{margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;}
+.screenshot-title-area h4{font-family:var(--font-head);font-size:1.1rem;font-weight:600;color:var(--white);}
+.screenshot-title-area p{font-size:0.8rem;color:var(--muted);font-family:var(--font-mono);margin-top:0.2rem;}
+.screenshot-img-wrap{background:var(--navy3);border-radius:8px;border:1px solid rgba(255,255,255,0.03);overflow:hidden;margin-bottom:1rem;display:flex;justify-content:center;align-items:center;}
+.screenshot-img-wrap img{width:100%;height:auto;display:block;object-fit:cover;}
+.screenshot-caption{font-size:0.88rem;color:var(--muted);line-height:1.6;border-left:2px solid var(--red);padding-left:0.75rem;}
+.status-dashboard{background:var(--navy3);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-top:2rem;}
+.status-dashboard h4{font-family:var(--font-mono);font-size:0.8rem;letter-spacing:0.1em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
+.status-dashboard h4::before{content:'';width:6px;height:6px;background:var(--red);border-radius:50%;display:inline-block;animation:pulse 2s infinite;}
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.status-item{display:flex;flex-direction:column;gap:0.2rem;border-left:1px solid var(--border);padding-left:0.75rem;}
+.status-label{font-size:0.72rem;font-family:var(--font-mono);color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;}
+.status-val{font-size:0.9rem;font-weight:500;color:var(--white);}
+
 /* ── HOW IT WORKS ── */
 #how{background:var(--navy2);}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
@@ -244,6 +264,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
   </a>
   <div class="nav-links">
     <a href="#products">Products</a>
+    <a href="#pipeline">Interface</a>
     <a href="#how">How It Works</a>
     <a href="#founder">Team</a>
     <a href="#research">Research</a>
@@ -293,7 +314,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
     <div class="traction-sep"></div>
     <div class="traction-item">
       <div class="traction-dot"></div>
-      <span><strong>Bank of Botswana Regulatory Sandbox </strong> - underway 2026</span>
+      <span><strong>Bank of Botswana Regulatory Sandbox Application</strong> - underway 2026</span>
     </div>
   </div>
 </div>
@@ -367,6 +388,162 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
         <a href="https://rehoboth-research-api.onrender.com/docs" target="_blank" class="product-link">View Live API Docs →</a>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE SYSTEM ARCHITECTURE SECTION -->
+<section id="pipeline">
+  <div class="section-inner">
+    <div class="section-label">System Interface</div>
+    <h2 class="section-title">Operational Data Architecture & MVP Preview</h2>
+    <p class="section-desc">Look inside the end-to-end telemetry system running our active procurement intelligence pipelines.</p>
+    
+    <div class="pipeline-layout">
+      <!-- Left Column: Figma Blueprint SVG -->
+      <div class="pipeline-svg-sticky">
+        <svg viewBox="0 0 400 820" width="100%" height="100%" style="background: #12131f; font-family: 'DM Mono', monospace; border-radius: 12px; border: 1px solid var(--border);">
+          <defs>
+            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/>
+            </pattern>
+            <linearGradient id="redGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#D41F1F" />
+              <stop offset="100%" stop-color="#a01515" />
+            </linearGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="#12131f" />
+          <rect width="100%" height="100%" fill="url(#grid)" />
+
+          <!-- Connectors -->
+          <g stroke="url(#redGlow)" stroke-width="1.5" fill="none" stroke-dasharray="4 4">
+            <path d="M 200 110 L 200 150" />
+            <path d="M 200 230 L 200 270" />
+            <path d="M 200 410 L 200 450" />
+            <path d="M 200 530 L 200 570" />
+            <path d="M 200 670 L 200 710" />
+          </g>
+
+          <!-- Node 1 -->
+          <g transform="translate(40, 30)">
+            <rect width="320" height="80" rx="6" fill="#1a1b2e" stroke="var(--border)" stroke-width="1" />
+            <rect width="4" height="80" rx="2" fill="#D41F1F" />
+            <text x="20" y="30" fill="#8b8fa8" font-size="9" letter-spacing="1">INPUT LAYER // 01</text>
+            <text x="20" y="52" fill="#f0f0f4" font-size="13" font-weight="bold">Client Intake Survey</text>
+          </g>
+
+          <!-- Node 2 -->
+          <g transform="translate(40, 150)">
+            <rect width="320" height="80" rx="6" fill="#1a1b2e" stroke="var(--border)" stroke-width="1" />
+            <rect width="4" height="80" rx="2" fill="#D41F1F" />
+            <text x="20" y="30" fill="#8b8fa8" font-size="9" letter-spacing="1">CALIBRATION ENGINE // 02</text>
+            <text x="20" y="52" fill="#f0f0f4" font-size="13" font-weight="bold">Capability Mapping</text>
+          </g>
+
+          <!-- Node 3 -->
+          <g transform="translate(20, 270)">
+            <rect width="360" height="140" rx="8" fill="#1a1b2e" stroke="rgba(212,31,31,0.3)" stroke-width="1.5" />
+            <text x="20" y="32" fill="#D41F1F" font-size="9" font-weight="bold" letter-spacing="1.5">⚡ CORE COMPUTE CORE</text>
+            <text x="20" y="60" fill="#f0f0f4" font-size="15" font-weight="bold">Procurement Intel Engine</text>
+            <rect x="20" y="82" width="320" height="42" rx="4" fill="#0b0c14" />
+            <text x="30" y="98" fill="#8b8fa8" font-size="9">Ingesting streaming vector feeds...</text>
+            <text x="30" y="112" fill="#D41F1F" font-size="9">Filter Shield: ACTIVE // 14 parsed</text>
+          </g>
+
+          <!-- Node 4 -->
+          <g transform="translate(40, 450)">
+            <rect width="320" height="80" rx="6" fill="#1a1b2e" stroke="var(--border)" stroke-width="1" />
+            <rect width="4" height="80" rx="2" fill="#D41F1F" />
+            <text x="20" y="30" fill="#8b8fa8" font-size="9" letter-spacing="1">SCORING LAYER // 03</text>
+            <text x="20" y="52" fill="#f0f0f4" font-size="13" font-weight="bold">Opportunity Scoring</text>
+          </g>
+
+          <!-- Node 5 -->
+          <g transform="translate(40, 570)">
+            <rect width="320" height="100" rx="6" fill="#1a1b2e" stroke="rgba(212,31,31,0.4)" stroke-width="1" />
+            <rect width="4" height="100" rx="2" fill="#D41F1F" />
+            <text x="20" y="30" fill="#8b8fa8" font-size="9" letter-spacing="1">DISTRIBUTION HUB // 04</text>
+            <text x="20" y="55" fill="#f0f0f4" font-size="14" font-weight="bold">Telegram &amp; Slack Alerts</text>
+            <rect x="20" y="68" width="130" height="20" rx="3" fill="#22243a" />
+            <circle cx="30" cy="78" r="3" fill="#D41F1F" />
+            <text x="40" y="82" fill="#f0f0f4" font-size="9">Asynchronous Push</text>
+          </g>
+
+          <!-- Node 6 -->
+          <g transform="translate(40, 710)">
+            <rect width="320" height="80" rx="6" fill="rgba(212,31,31,0.03)" stroke="#D41F1F" stroke-width="1" stroke-dasharray="3 3" />
+            <text x="20" y="32" fill="#D41F1F" font-size="9" letter-spacing="1" font-weight="bold">🔒 HUMAN VERIFICATION</text>
+            <text x="20" y="55" fill="#f0f0f4" font-size="14" font-weight="bold">Customer Review &amp; Bid</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Right Column: Verification Screenshots & Captions -->
+      <div class="screenshot-walkthrough">
+        
+        <!-- Screenshot A -->
+        <div class="screenshot-block">
+          <div class="screenshot-title-area">
+            <h4>Screenshot A: Intake Form & Parameters Map</h4>
+            <p>tally_scrnshot_rehobothwebsite.png</p>
+          </div>
+          <div class="screenshot-img-wrap">
+            <img src="images/tally_scrnshot_rehobothwebsite.png" alt="Client onboarding capabilities matrix form">
+          </div>
+          <p class="screenshot-caption">Customer onboarding questionnaire used to customize monitoring parameters and isolate strict vertical vectors (AI, Blockchain, Space/Satellite, etc.).</p>
+        </div>
+
+        <!-- Screenshot B -->
+        <div class="screenshot-block">
+          <div class="screenshot-title-area">
+            <h4>Screenshot B: Pipeline Feed & Filter Shield Logs</h4>
+            <p>rehobothintel_scrnsht_header.jpg</p>
+          </div>
+          <div class="screenshot-img-wrap">
+            <img src="images/rehobothintel_scrnsht_header.jpg" alt="Automated procurement engine telemetry run logs">
+          </div>
+          <p class="screenshot-caption">Procurement opportunities evaluated in real-time. The core system processes multi-channel streaming contract feeds, immediately applying active semantic code shields to strip noise.</p>
+        </div>
+
+        <!-- Screenshot C -->
+        <div class="screenshot-block">
+          <div class="screenshot-title-area">
+            <h4>Screenshot C: Asynchronous Tactical Alert Execution</h4>
+            <p>rehobothintel_scrnsht_contracts.jpg</p>
+          </div>
+          <div class="screenshot-img-wrap">
+            <img src="images/rehobothintel_scrnsht_contracts.jpg" alt="Telegram notification delivery layer pipeline matches">
+          </div>
+          <p class="screenshot-caption">Daily procurement intelligence alerts delivered directly to pilot partners via standard secure delivery layers—graded dynamically by relevance and structural alignment tags.</p>
+        </div>
+
+        <!-- Live Infrastructure Deployment Status Module -->
+        <div class="status-dashboard">
+          <h4>Current Deployment Specifications</h4>
+          <div class="status-grid">
+            <div class="status-item">
+              <span class="status-label">Operational Architecture</span>
+              <span class="status-val">Prototype Operational</span>
+            </div>
+            <div class="status-item">
+              <span class="status-label">Target Milestones</span>
+              <span class="status-val">Q3 2026 Pilot Cohort Recruiting</span>
+            </div>
+            <div class="status-item">
+              <span class="status-label">Pipeline Verification</span>
+              <span class="status-val">Human-in-the-loop Validation</span>
+            </div>
+            <div class="status-item">
+              <span class="status-label">Delivery Layer</span>
+              <span class="status-val">Daily Alert Delivery via Telegram</span>
+            </div>
+          </div>
+          <div style="margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--muted);">
+            *Note: Web dashboard deployment and enterprise integration interfaces are scheduled for production release following completion of the current cohort iteration loops.
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
