@@ -63,6 +63,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 h1{font-family:var(--font-head);font-weight:800;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:1.5rem;animation:fadeUp .8s .1s ease both;}
 h1 em{font-style:normal;color:var(--red);}
 .hero-sub{font-size:1.1rem;color:var(--muted);max-width:580px;line-height:1.8;margin-bottom:2.5rem;animation:fadeUp .8s .2s ease both;}
+.hero-audience{font-size:.9rem;opacity:.7;margin:-1.5rem 0 2rem;letter-spacing:.02em;animation:fadeUp .8s .25s ease both;}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .8s .3s ease both;}
 .btn-primary{background:var(--red);color:#fff;padding:.75rem 1.8rem;border-radius:4px;text-decoration:none;font-weight:500;font-size:.9rem;letter-spacing:.02em;transition:background .2s,transform .15s;display:inline-flex;align-items:center;gap:.5rem;}
 .btn-primary:hover{background:var(--red-dim);transform:translateY(-1px);}
@@ -80,7 +81,7 @@ h1 em{font-style:normal;color:var(--red);}
 .traction-sep{width:1px;height:20px;background:var(--border);}
 
 /* ── SECTIONS SHARED ── */
-section{padding:5rem 2.5rem;}
+section{padding:5rem 2.5rem;scroll-margin-top:30px;}
 .section-inner{max-width:1100px;margin:0 auto;}
 .section-label{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;}
 .section-title{font-family:var(--font-head);font-weight:700;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.2;margin-bottom:1rem;}
@@ -229,7 +230,13 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
 /* ── MOBILE ── */
 @media(max-width:900px){
   nav{padding:1rem 1.4rem;}
-  .nav-links{display:none;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:1rem 1.4rem 1.5rem;background:rgba(11,12,20,.97);border-bottom:1px solid var(--border);}
+  nav.menu-open .nav-links{display:flex;}
+  .nav-links a{padding:.9rem 0;border-bottom:1px solid var(--border);font-size:1rem;}
+  .nav-links .nav-cta{margin-top:1rem;text-align:center;border-bottom:none;padding:.8rem 1rem;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   .hamburger{display:flex;}
   #hero{padding:7rem 1.4rem 4rem;}
   .problem-grid,.products-grid{grid-template-columns:1fr;}
@@ -271,7 +278,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
     Apply for Q4 2026 Pilot Cohort
     </a>
   </div>
-  <div class="hamburger" onclick="this.classList.toggle('open')">
+  <div class="hamburger">
     <span></span><span></span><span></span>
   </div>
 </nav>
@@ -347,7 +354,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
 </section>
 
 <!-- PRODUCTS -->
-<section id="products">
+<section id="platform">
   <div class="section-inner">
     <div class="section-label">Platform Features</div>
     <div class="products-grid">
@@ -370,7 +377,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
 </section>
 
 <!-- SYSTEM INTERFACE SECTION -->
-<section id="pipeline">
+<section id="how it works">
   <div class="section-inner">
     <div class="section-label">How It Works (4-Step Pipeline)</div>
     <h2 class="section-title">The AI-Driven Procurement Pipeline</h2>
@@ -587,7 +594,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:2rem 2.
 </section>
 
 <!-- RESEARCH & PRESS-->
-<section id="research">
+<section id="thought leadership">
   <div class="section-inner">
     <div class="section-label">Research & Press</div>
     <h2 class="section-title">Published work & appearances</h2>
@@ -696,6 +703,20 @@ const obs=new IntersectionObserver(entries=>{
 document.querySelectorAll('.problem-card,.product-card,.who-card,.research-card,.coverage-row,.step').forEach(el=>{
   el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .5s ease,transform .5s ease';
   obs.observe(el);
+});
+  
+// Mobile menu
+const nav=document.querySelector('nav');
+const menuBtn=document.querySelector('.hamburger');
+menuBtn.addEventListener('click',()=>{
+  const open=nav.classList.toggle('menu-open');
+  menuBtn.classList.toggle('open',open);
+});
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    nav.classList.remove('menu-open');
+    menuBtn.classList.remove('open');
+  });
 });
 </script>
 </body>
